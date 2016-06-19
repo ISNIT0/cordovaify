@@ -1,0 +1,13 @@
+<body>
+    <h3>From Zip (requires root level index.html)</h3>
+    <form method='post' action='zip' enctype="multipart/form-data">
+        <input type='file' name='appZip' accepts='.zip' />
+        <input type='submit' />
+    </form>
+
+    <h3>From URL (will only download the exact url)</h3>
+    <form method='post' action='url' enctype="multipart/form-data">
+        <input type='text' name='appURL' />
+        <input type='submit' />
+    </form>
+</body>
