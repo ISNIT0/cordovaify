@@ -2,10 +2,14 @@
   "name": "Cordovaify",
   "version": "0.0.1",
   "dependencies": {
+    "express": "^4.14.0",
+    "formidable": "^1.0.17",
     "friendly-ids": "^1.0.1",
     "ncp": "^2.0.0",
     "request": "^2.72.0",
-    "tiny-promisify": "^0.1.1"
+    "rimraf": "^2.5.2",
+    "tiny-promisify": "^0.1.1",
+    "unzip": "^0.1.11"
   },
   "devDependencies": {
     "cordova": "~2.9.0",
