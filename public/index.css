@@ -228,3 +228,19 @@
   .popover-item:first-child .popover-link:hover:after {
     border-bottom-color: #33C3F0; }
 }
+
+
+
+.dropzone { border: 2px dashed #222; border-radius: 5px; background: white; }
+.dropzone .dz-message { font-weight: 400; }
+.dropzone .dz-message .note { font-size: 0.8em; font-weight: 200; display: block; margin-top: 1.4rem; }
+
+
+a.columns {
+  color:#222;
+  text-decoration:none;
+}
+a.columns:hover {
+  text-decoration:none;
+  background:#ddd;
+}

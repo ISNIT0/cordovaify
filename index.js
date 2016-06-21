@@ -83,7 +83,7 @@ const dlApp = res => {
 const handleDownload = (stream, id, res) => {
     stream.on('close', _ => {
         console.info(`Building ${id}`);
-        res.redirect(`/done/${id}`);
+        res.send(id);
         exec(`cd ./pool/${id} && cordova build android`).then((error, stdout, stderr) => {
             poolStatus[id] = true;
         });
@@ -103,18 +103,13 @@ app.get('/download/:id', (req, res) => {
     });
 });
 
-app.get('/done/:id', (req, res) => {
-    res.send(`Click to start download: <a target='_blank' href='/download/${req.params.id}'>${req.params.id}.apk</a>.`);
-});
-
-
 app.post('/zip', function (req, res) {
     const form = new formidable.IncomingForm();
 
     claimPoolEntry(id => {
         console.log(`Item uploaded as ${id}`);
         form.parse(req, function (err, fields, files) {
-            handleDownload(fs.createReadStream(files.appZip.path)
+            handleDownload(fs.createReadStream(files.file.path)
                 .pipe(unzip.Extract({ path: `./pool/${id}/www/app/` })), id, res);
         });
     });
