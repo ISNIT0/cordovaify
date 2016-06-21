@@ -1,13 +1,116 @@
-<body>
-    <h3>From Zip (requires root level index.html)</h3>
-    <form method='post' action='zip' enctype="multipart/form-data">
-        <input type='file' name='appZip' accepts='.zip' />
-        <input type='submit' />
-    </form>
+<html>
 
-    <h3>From URL (will only download the exact url)</h3>
+<head>
+
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <link rel='stylesheet' href='/normalize.css' />
+    <link rel='stylesheet' href='/skeleton.css' />
+    <link rel='stylesheet' href='/index.css' />
+
+</head>
+
+<body>
+    <div class='container'>
+
+        <section class="header">
+            <h2 class="title">HTML to app, without the hassle</h2>
+            <a class="button button-primary" href="#upload">TRY NOW</a>
+            <div class="value-props row">
+                <div class="four columns value-prop">
+                    <img class="value-img" src="/HTML5.svg"> Make a zip with an index.html
+                </div>
+                <div class="four columns value-prop">
+                    <img class="value-img" src="/upload.png"> Upload
+                </div>
+                <div class="four columns value-prop">
+                    <img class="value-img" src="/command.svg"> adb install ~/Downloads/*.apk
+                </div>
+            </div>
+        </section>
+
+
+        <div class="navbar-spacer"></div>
+        <nav class="navbar">
+            <div class="container">
+                <ul class="navbar-list">
+                    <li class="navbar-item"><a class="navbar-link" href="#intro">Intro</a></li>
+                    <li class="navbar-item"><a class="navbar-link" href="#upload">Upload</a></li>
+                    <li class="navbar-item"><a class="navbar-link" href="#examples">Examples</a></li>
+                    <li class="navbar-item"><a class="navbar-link" href="#about">About</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+
+        <div class="docs-section" id="intro">
+            <h6 class="docs-header">How it works</h6>
+            <p>We use <a href='#'>Cordova</a> to build installable apps from HTML files. All we need you to do, is give us a
+                <b>zip</b> file containing an
+                <u>index.html</u> file (along with your other assets and HTML). Once you have uploaded the zip, we create a
+                temporary Cordova skeleton app for your content.</p>
+            <!--
+            <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button"
+                title="Twitter Tweet Button" src="http://platform.twitter.com/widgets/tweet_button.178875e873dd548f81376d8be28c2163.en.html#dnt=false&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=http%3A%2F%2Fgetskeleton.com%2F%23intro&amp;related=dhg&amp;size=m&amp;text=Skeleton%20-%20A%20dead%20simple%2C%20responsive%20boilerplate.&amp;time=1466497099914&amp;type=share&amp;url=http%3A%2F%2Fwww.getskeleton.com&amp;via=dhg"
+                style="position: static; visibility: visible; width: 61px; height: 20px;" data-url="http://www.getskeleton.com"></iframe>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <!-- <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.getskeleton.com&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=21&amp;appId=151131931646052" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px; width:140px" allowTransparency="true"></iframe> -->
+            <iframe src="http://ghbtns.com/github-btn.html?user=dhg&amp;repo=Skeleton&amp;type=watch&amp;count=true" allowtransparency="true"
+                frameborder="0" scrolling="0" width="110" height="20"></iframe>
+            <iframe src="http://ghbtns.com/github-btn.html?user=dhg&amp;repo=Skeleton&amp;type=fork&amp;count=true" allowtransparency="true"
+                frameborder="0" scrolling="0" width="110" height="20"></iframe>
+        </div>
+
+        <div class="docs-section" id="upload">
+            <h6 class="docs-header">Upload</h6>
+            <p>Your zip file should have an index.html file at it's root</p>
+            <div style='height:300px; width:100%; background:lightgray;'></div>
+        </div>
+
+        <div class="docs-section" id="examples">
+            <h6 class="docs-header">Examples</h6>
+            <p>Making a zip file too much hastle?<br /> Download one of these pre-made ones and try the upload out.</p>
+            <div class='example-grid docs-example'>
+                <div class="row">
+                    <div class="three columns">PHET</div>
+                    <div class="three columns">Wikipedia</div>
+                    <div class="three columns">Personal</div>
+                    <div class="three columns">IFrame</div>
+                </div>
+                <div class="row">
+                    <div class="three columns">XKCD</div>
+                    <div class="three columns">Photos</div>
+                    <div class="three columns">Three</div>
+                    <div class="three columns">Four</div>
+                </div>
+                <div class="row">
+                    <div class="twelve columns">Got another example? <a target='_blank' href='http://twitter.com/jreeve0'>Let me know about it!</a></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="docs-section" id="about">
+            <h6 class="docs-header">About</h6>
+            <p>This project work worked on at the <a target='_blank' href='http://www.kiwix.org/wiki/Hackathon_Wikimania_2016'>Kiwix Wikimania 2016 Hackathon</a> as an effort to easily generate apps from <a target='_blank' href='https://phet.colorado.edu/'>PhET Simulations</a>
+            <br />
+            The project is written in <a target='_blank' href='http://nodejs.org'>NodeJS</a> and is hosted on a <a target='_blank' href='http://digitalocean.com'>Digital Ocean Droplet</a></p>
+        </div>
+
+
+        <h3>From Zip (requires root level index.html)</h3>
+        <form method='post' action='zip' enctype="multipart/form-data">
+            <input type='file' name='appZip' accepts='.zip' />
+            <input type='submit' />
+        </form>
+
+        <!--<h3>From URL (will only download the exact url)</h3>
     <form method='post' action='url' enctype="multipart/form-data">
         <input type='text' name='appURL' />
         <input type='submit' />
-    </form>
+    </form>-->
+    </div>
 </body>
+
+</html>
