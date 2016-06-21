@@ -1,6 +1,6 @@
 {
-  "name": "package",
-  "version": "0.0.0",
+  "name": "Cordovaify",
+  "version": "0.0.1",
   "dependencies": {
     "friendly-ids": "^1.0.1",
     "ncp": "^2.0.0",
