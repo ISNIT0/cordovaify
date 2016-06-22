@@ -5,10 +5,6 @@ Dropzone.options.uploadZip = {
   acceptedFiles: '.zip',
   maxFiles: 1,
   complete: function (res) {
-    setTimeout(function () {
-      self.removeAllFiles();
-    }, 3000);
-
     if (res.status !== 'success') {
       return alert('Something went wrong!');
     }
@@ -20,5 +16,9 @@ Dropzone.options.uploadZip = {
     doneMessage.style.opacity = '1';
 
     document.getElementsByClassName('download-link')[0].setAttribute('href', '/download/' + res.xhr.response);
+
+    setTimeout(function () {
+      self.removeAllFiles();
+    }, 3000);
   }
 };

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel='stylesheet' href='./index.css'></link>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/ractive/0.7.3/ractive.js'></script>
+    <script src='https://openexchangerates.github.io/accounting.js/accounting.min.js'></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Unmortgage Calculator</title>
+</head>
+
+<body>
+    <script type='text/html' id='home'>
+        <div class='page'>
+
+            <h1>What Could you Buy?</h1>
+
+            
+            <h2>What is your salary? <br /><small><small>Don't worry, we won't tell anyone!</small></small></h2>
+            <input type='number' value='{{salary}}' placeholder='30000' lazy='true' />
+            <br /><br />
+            
+            <h2>What's the outcode of the place you want to live?<br /><small><small>That's the first half of the postcode</small></small></h2>
+            <input type='text' value='{{outcode}}' placeholder='SW10' lazy='true' />
+
+
+            {{#if budget}}
+            
+            <br /><br /><br />
+
+            <h2>With an Unmortgage: {{formatMoney(budget)}}</h2>
+
+            <h3>That's a {{houseSize(areaDetail, budget)}} bedroom house!</h3>
+
+            <br />
+            
+            <h3>With a Bank: {{formatMoney(bankBudget)}}</h3>
+
+            <h4>That's a {{houseSize(areaDetail, bankBudget)}} bedroom house!</h4>
+            
+            <hr />
+            <h2>We beat the banks by {{formatMoney(budget - bankBudget)}}!</h2>
+            
+            
+            <br /><br />
+            <h2>Want us to let you know when we're ready for you?<br />
+            <small><small>And don't worry, we're not in the business of selling your details.
+            </small></small></h2>
+            <form>
+                <input type='hidden' value='{{salary}}' name='salary' />
+                <input type='hidden' value='{{outcode}}' name='outcode' />
+                <input type='email' value='' placeholder='joe.bloggs@email.com' name='email' />
+            </form>
+            
+            
+            {{/if}}
+            
+            {{#if error && outcode && salary}}
+            <br /><br />
+            <div class='error'>
+                {{error}}
+            </div>
+            {{/if}}
+            
+        </div>
+    </script>
+
+</body>
+
+
+
+<script src='./index.js'></script>
+
+</html>

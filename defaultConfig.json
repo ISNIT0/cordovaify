@@ -1,0 +1,66 @@
+{
+    "widget": {
+        "id": "",
+        "version": "0.0.1",
+        "xmlns": "http://www.w3.org/ns/widgets",
+        "xmlns:cdv": "http://cordova.apache.org/ns/1.0",
+        "content": {
+            "name": "",
+            "description": "Made With cordovaify.reeve.xyz",
+            "author": {
+                "email": "",
+                "href": "",
+                "content": ""
+            },
+            "content": {
+                "src": "index.html"
+            },
+            "access": {
+                "origin": "*"
+            },
+            "allow-intent": [
+                {
+                    "href": "http://*/*"
+                },
+                {
+                    "href": "https://*/*"
+                },
+                {
+                    "href": "tel:*"
+                },
+                {
+                    "href": "sms:*"
+                },
+                {
+                    "href": "mailto:*"
+                },
+                {
+                    "href": "go:*"
+                }
+            ],
+            "platform": [
+                {
+                    "name": "android",
+                    "content": {
+                        "allow-intent": {
+                            "href": "market:*"
+                        }
+                    }
+                },
+                {
+                    "name": "ios",
+                    "content": {
+                        "allow-intent": [
+                            {
+                                "href": "itms:*"
+                            },
+                            {
+                                "href": "itms-apps:*"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

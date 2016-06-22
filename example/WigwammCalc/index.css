@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+body {
+    background:#881897;
+    font-family: Raleway;
+    color:white;
+}
+
+.page {
+    position:absolute;
+    width:100%;
+    left:0;
+    top:0;
+    text-align:center;
+}
+
+input {
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    padding: 10px;
+    color: white;
+    font-size: 2em;
+    width:100%;
+}
+
+.error {
+    background:rgba(255, 50, 100, 1);
+    padding:15px;
+}
