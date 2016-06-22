@@ -32,7 +32,7 @@ const newPoolEntry = handler => {
     const id = friendly();
 
     exec(`(cd pool && 
-    cordova create ${id} && 
+    cordova create ${id} xyz.reeve.${id.replace(/[-0-9]/g, '')} ${id} && 
     cd ${id} && 
     cordova platform add android &&
     rm -rf www/*)`, function(err, stdout, stderr){
