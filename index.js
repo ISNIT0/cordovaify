@@ -99,6 +99,8 @@ const handleDownload = (stream, id, res) => {
         try {
             if (fs.existsSync(`./pool/${id}/www/config.json`)) //TODO: update to use a non deprecated function
                 config = JSON.parse(fs.readFileSync(`./pool/${id}/www/config.json`, 'utf8'));
+            if (fs.existsSync(`./pool/${id}/www/logo.png`)) //If logo.png is present, auto add it as the logo
+                defaultConfig.widget.content.icon = { "src": "www/icon.png" };
         } catch (e) {
             return res.status(500).send(e);
         };
@@ -110,11 +112,11 @@ const handleDownload = (stream, id, res) => {
             xmlConfig = xmlify(config);
         } else if (config.id) {
             var widgetConfig = Object.assign(defaultConfig.widget, config);
-            xmlConfig = xmlify(Object.assign(defaultConfig, {widget:widgetConfig}));
+            xmlConfig = xmlify(Object.assign(defaultConfig, { widget: widgetConfig }));
         } else {
             var contentConfig = Object.assign(defaultConfig.widget.content, config);
-            var widgetConfig = Object.assign(defaultConfig.widget, {content:contentConfig});
-            xmlConfig = xmlify(Object.assign(defaultConfig, {widget:widgetConfig}));
+            var widgetConfig = Object.assign(defaultConfig.widget, { content: contentConfig });
+            xmlConfig = xmlify(Object.assign(defaultConfig, { widget: widgetConfig }));
         };
 
         xmlConfig = "<?xml version='1.0' encoding='utf-8'?>\n" + xmlConfig;
