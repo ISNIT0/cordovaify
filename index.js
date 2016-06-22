@@ -25,12 +25,14 @@ const newPoolEntry = handler => {
     cordova platform add android &&
     rm -rf www/*)`, function (err, stdout, stderr) {
             if (err || stderr) return console.error(err, stderr);
+            poolStatus[id] = 'pending';
             handler(id);
         });
 };
 
 const deletePoolEntry = id => {
     rimraf(`./pool/${id}`, err => {
+        delete poolStatus[id];
         if (err) console.error(err);
     });
 }
@@ -111,23 +113,28 @@ const handleDownload = (stream, id, res) => {
     });
 }
 
-const checkDone = (id, handler) => {
-    if (typeof poolStatus[id] === 'undfined')
-        return handler(`Can't find item with id of ${id}`);
-    else if (poolStatus[id] === false)
-        return handler(`Looks like your build failed, check your config.json file`);
-    else if (poolStatus[id] === true)
-        handler(null);
+app.get('/done/:id/:final', (req, res) => {
+    const id = req.params.id;
+
+    if(poolStatus[id] !== true) res.redirect(`/download/${id}`);
+
+    if(req.params.final === 'true')
+        res.download(`./pool/${id}/platforms/android/build/outputs/apk/android-debug.apk`, `${id}.apk`);
     else
-        setTimeout(_ => checkDone(id, handler), 2500);
-};
+        fs.createReadStream('./public/done.html').pipe(res);
+});
 
 app.get('/download/:id', (req, res) => {
-    checkDone(req.params.id, err => {
-        if (err) return res.send(err);
-        console.log(`Downloading ${req.params.id}`);
-        res.download(`./pool/${req.params.id}/platforms/android/build/outputs/apk/android-debug.apk`, `${req.params.id}.apk`);
-    });
+    const id = req.params.id;
+
+    if (typeof poolStatus[id] === 'undefined')
+        fs.createReadStream('./public/missing.html').pipe(res);
+    else if (poolStatus[id] === false)
+        fs.createReadStream('./public/fail.html').pipe(res);
+    else if (poolStatus[id] === true)
+        res.redirect(`/done/${id}/false`)
+    else
+        fs.createReadStream('./public/wait.html').pipe(res);
 });
 
 app.post('/zip', function (req, res) {

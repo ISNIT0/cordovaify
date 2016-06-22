@@ -19,6 +19,6 @@ Dropzone.options.uploadZip = {
     doneMessage.style.display = 'block';
     doneMessage.style.opacity = '1';
 
-    document.getElementsByClassName('download-link')[0].setAttribute('href', '/download/' + res.xhr.response);
+    window.location.pathname = window.location.pathname + 'download/' + res.xhr.response;
   }
 };
