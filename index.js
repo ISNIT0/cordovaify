@@ -31,10 +31,13 @@ const claimPoolEntry = handler => {
 const newPoolEntry = handler => {
     const id = friendly();
 
-    ncp(`./template`, `./pool/${id}`, function (err) {
-        if (err) {
-            return console.error(err);
-        }
+    exec(`(cd pool && 
+    cordova create ${id} && 
+    cd ${id} && 
+    cordova platform add android &&
+    rm -rf www/*)`, function(err, stdout, stderr){
+        if(err) return console.error(err);
+
         pool.push(id);
         handler(id);
     });
@@ -109,8 +112,9 @@ app.post('/zip', function (req, res) {
     claimPoolEntry(id => {
         console.log(`Item uploaded as ${id}`);
         form.parse(req, function (err, fields, files) {
+            if(!(files && files.file && files.file.path)) res.send('There was an error with the upload', 500);
             handleDownload(fs.createReadStream(files.file.path)
-                .pipe(unzip.Extract({ path: `./pool/${id}/www/app/` })), id, res);
+                .pipe(unzip.Extract({ path: `./pool/${id}/www/` })), id, res);
         });
     });
 });
