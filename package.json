@@ -5,18 +5,11 @@
     "express": "^4.14.0",
     "formidable": "^1.0.17",
     "friendly-ids": "^1.0.1",
-    "ncp": "^2.0.0",
     "request": "^2.72.0",
     "rimraf": "^2.5.2",
-    "tiny-promisify": "^0.1.1",
     "unzip": "^0.1.11"
   },
-  "devDependencies": {
-    "cordova": "~2.9.0",
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-watch": "~0.4.0",
-    "grunt-shell": "~0.3.0",
-    "matchdep": "~0.1.1"
+  "scripts": {
+    "start": "node ./index.js"
   }
 }

@@ -1,5 +1,4 @@
 const express = require('express');
-const promisify = require('tiny-promisify');
 const fs = require('fs');
 const unzip = require('unzip');
 const rimraf = require('rimraf');
@@ -7,32 +6,18 @@ const formidable = require('formidable');
 const exec = require('child_process').exec;
 const request = require('request');
 const friendly = require("friendly-ids");
-const ncp = require('ncp').ncp;
 const xmlify = require('./xmlify.js');
 
 const app = express();
 
 app.use(express.static('public'));
 
-var pool = [];
 var poolStatus = {};
-
-const claimPoolEntry = handler => {
-    if (pool.length) { //If we have spare items ready
-        var id;
-        newPoolEntry(Object);
-        handler(id = pool.pop());
-        poolStatus[id] = 'pending';
-    } else { //Else create 2 new ones and assign one
-        newPoolEntry(id => {
-            claimPoolEntry(handler);
-            newPoolEntry(Object);
-        });
-    }
-}
 
 const newPoolEntry = handler => {
     const id = friendly();
+
+    scheduleEntryDeletion(id);
 
     exec(`(cd pool && 
     cordova create ${id} xyz.reeve.${id.replace(/[-0-9]/g, '')} ${id} && 
@@ -40,8 +25,6 @@ const newPoolEntry = handler => {
     cordova platform add android &&
     rm -rf www/*)`, function (err, stdout, stderr) {
             if (err || stderr) return console.error(err, stderr);
-
-            pool.push(id);
             handler(id);
         });
 };
@@ -53,7 +36,7 @@ const deletePoolEntry = id => {
 }
 
 const scheduleEntryDeletion = id => {
-    setTimeout(_ => deletePoolEntry(id), 10000000);
+    setTimeout(_ => deletePoolEntry(id), 100000);
 };
 
 //******** INIT ********//
@@ -90,7 +73,7 @@ const handleDownload = (stream, id, res) => {
         try {
             if (fs.existsSync(`./pool/${id}/www/config.json`)) //TODO: update to use a non deprecated function
                 config = JSON.parse(fs.readFileSync(`./pool/${id}/www/config.json`, 'utf8'));
-            if (fs.existsSync(`./pool/${id}/www/logo.png`)) //If logo.png is present, auto add it as the logo
+            if (fs.existsSync(`./pool/${id}/www/icon.png`)) //If icon.png is present, auto add it as the logo
                 defaultConfig.widget.content.icon = { "src": "www/icon.png" };
         } catch (e) {
             return res.status(500).send(e);
@@ -117,13 +100,14 @@ const handleDownload = (stream, id, res) => {
 
         exec(`cd ./pool/${id} && cordova build android`, (error, stdout, stderr) => {
             if (error) {
+                console.log(`Build of ${id} failed`);
                 console.error(error, stderr);
                 poolStatus[id] = false;
             } else {
+                console.log(`Build of ${id} complete - it's ready to be downloaded.`);
                 poolStatus[id] = true;
             }
         });
-        scheduleEntryDeletion();
     });
 }
 
@@ -149,7 +133,7 @@ app.get('/download/:id', (req, res) => {
 app.post('/zip', function (req, res) {
     const form = new formidable.IncomingForm();
 
-    claimPoolEntry(id => {
+    newPoolEntry(id => {
         console.log(`Item uploaded as ${id}`);
         form.parse(req, function (err, fields, files) {
             if (!(files && files.file && files.file.path)) res.send('There was an error with the upload', 500);
