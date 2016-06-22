@@ -77,15 +77,6 @@ app.get('/', function (req, res) {
     fs.createReadStream('index.html').pipe(res);
 });
 
-/*
-const compileApp = handler => _ => exec('cd template && cordova build android', handler);
-const dlApp = res => {
-    return function (error, stdout, stderr) {
-        if (error) return res.send(error);
-        res.download('template/platforms/android/build/outputs/apk/android-debug.apk');
-    };
-};*/
-
 const handleDownload = (stream, id, res) => {
     stream.on('close', _ => {
         console.info(`Building ${id}`);
