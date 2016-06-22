@@ -11,6 +11,7 @@ const xmlify = require('./xmlify.js');
 const app = express();
 
 app.use(express.static('public'));
+app.use('/example', express.static('example'));
 
 var poolStatus = {};
 
