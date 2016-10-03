@@ -8,8 +8,8 @@ Dropzone.options.uploadZip = {
 
     if (res.status !== 'success') {
       window.location.pathname = '/fail.html';
+    } else {
+        window.location.pathname = window.location.pathname + 'download/' + res.xhr.response;
     }
-
-    window.location.pathname = window.location.pathname + 'download/' + res.xhr.response;
   }
 };
