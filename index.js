@@ -117,9 +117,9 @@ const handleDownload = (stream, id, res) => {
 app.get('/done/:id/:final', (req, res) => {
     const id = req.params.id;
 
-    if(poolStatus[id] !== true) res.redirect(`/download/${id}`);
-
-    if(req.params.final === 'true')
+    if (poolStatus[id] !== true) 
+        res.redirect(`/download/${id}`);
+    else if (req.params.final === 'true')
         res.download(`./pool/${id}/platforms/android/build/outputs/apk/android-debug.apk`, `${id}.apk`);
     else
         fs.createReadStream('./public/done.html').pipe(res);
@@ -144,9 +144,12 @@ app.post('/zip', function (req, res) {
     newPoolEntry(id => {
         console.log(`Item uploaded as ${id}`);
         form.parse(req, function (err, fields, files) {
-            if (!(files && files.file && files.file.path)) res.send('There was an error with the upload', 500);
-            handleDownload(fs.createReadStream(files.file.path)
-                .pipe(unzip.Extract({ path: `./pool/${id}/www/` })), id, res);
+            if (files && files.file && files.file.path) {
+                handleDownload(fs.createReadStream(files.file.path)
+                    .pipe(unzip.Extract({ path: `./pool/${id}/www/` })), id, res);
+            } else {
+                res.send('There was an error with the upload', 500);
+            }
         });
     });
 });
