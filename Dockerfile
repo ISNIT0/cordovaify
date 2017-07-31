@@ -3,7 +3,7 @@ FROM node:argon
 RUN \
 npm i -g cordova pm2 && \
 apt-get update && \
-apt-get install -y lib32stdc++6 lib32z1 default-jre default-jdk
+apt-get install -y lib32stdc++6 lib32z1 default-jre default-jdk openjdk-7-jdk
 
 # download and extract android sdk
 RUN curl http://dl.google.com/android/android-sdk_r24.2-linux.tgz | tar xz -C /usr/local/
